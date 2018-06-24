@@ -10,8 +10,10 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var categorySearchBar: UISearchBar!
+    
     
     // Realmインスタンスを取得する
     let realm = try! Realm()  // ←追加
@@ -27,6 +29,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.delegate = self
         tableView.dataSource = self
+        categorySearchBar.delegate = self
+        categorySearchBar.enablesReturnKeyAutomatically = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,6 +125,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    //検索ボタンが押されたときに呼ばれるメソッド
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        categorySearchBar.endEditing(true)
+        categorySearchBar.showsCancelButton = true
+        let query = categorySearchBar.text!.lowercased()
+        if query != "" {
+            let predicate = NSPredicate(format: "category BEGINSWITH %@", query)
+            taskArray = realm.objects(Task.self).filter(predicate)
+            tableView.reloadData()
+        } else {
+            taskArray = realm.objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+            tableView.reloadData()
+        }
+    }
+    
+    //キャンセルボタンが押されたときに呼ばれるメソッド
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        categorySearchBar.showsCancelButton = false
+        categorySearchBar.endEditing(true)
+        categorySearchBar.text = ""
+        taskArray = realm.objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+        tableView.reloadData()
+    }
+    
+    //テキストフィールド入力時に呼ばれるメソッド
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        categorySearchBar.showsCancelButton = true
+        return true
     }
 
 }
