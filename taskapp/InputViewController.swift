@@ -10,12 +10,15 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class InputViewController: UIViewController {
+class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    var pickerView: UIPickerView = UIPickerView()
+    let list = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    
     
     var task: Task!
     let realm = try! Realm()
@@ -27,6 +30,19 @@ class InputViewController: UIViewController {
         // 背景をタップしたらdismissKeyboardメソッドを呼ぶように設定する
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGesture)
+        
+        //textFieldの選択肢をPickerで表示
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.showsSelectionIndicator = true
+        
+        let toolbar = UIToolbar(frame: CGRectMake(0, 0, 0, 35))
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(InputViewController.done))
+        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(InputViewController.cancel))
+        toolbar.setItems([cancelItem, doneItem], animated: true)
+        
+        self.categoryTextField.inputView = pickerView
+        self.categoryTextField.inputAccessoryView = toolbar
         
         titleTextField.text = task.title
         categoryTextField.text = task.category
@@ -100,6 +116,36 @@ class InputViewController: UIViewController {
                 print("---------------/")
             }
         }
+    }
+    
+    //pickerに関する関数
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return list.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return list[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.categoryTextField.text = list[row]
+    }
+    
+    @objc func cancel() {
+        self.categoryTextField.text = ""
+        self.categoryTextField.endEditing(true)
+    }
+    
+    @objc func done() {
+        self.categoryTextField.endEditing(true)
+    }
+    
+    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
+        return CGRect(x: x, y: y, width: width, height: height)
     }
 
     /*
