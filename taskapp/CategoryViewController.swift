@@ -29,10 +29,13 @@ class CategoryViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        try! realm.write {
-            self.category.name = nameTextField.text!
-            self.realm.add(self.category, update: true)
+        if nameTextField.text != "" {
+            try! realm.write {
+                self.category.name = nameTextField.text!
+                self.realm.add(self.category, update: true)
+            }
         }
+
         
         super.viewWillDisappear(animated)
 

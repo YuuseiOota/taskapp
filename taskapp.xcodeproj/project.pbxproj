@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5036A61220DF293C0061F27E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5036A61120DF293C0061F27E /* Task.swift */; };
+		50DD1DCC20E2847300952F36 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DD1DCB20E2847300952F36 /* Category.swift */; };
 		50F6A78C20E1F448004A2857 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F6A78B20E1F448004A2857 /* CategoryViewController.swift */; };
 		50F826A220DF1E3800C7D1EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F826A120DF1E3800C7D1EC /* AppDelegate.swift */; };
 		50F826A420DF1E3800C7D1EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F826A320DF1E3800C7D1EC /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 		071FAAA718B56B34D56575E2 /* Pods-taskapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-taskapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-taskapp/Pods-taskapp.release.xcconfig"; sourceTree = "<group>"; };
 		0C7BB66E33AEA84BDCE23FC9 /* Pods_taskapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_taskapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5036A61120DF293C0061F27E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		50DD1DCB20E2847300952F36 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		50F6A78B20E1F448004A2857 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		50F8269E20DF1E3800C7D1EC /* taskapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taskapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F826A120DF1E3800C7D1EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				50F826B320DF26CA00C7D1EC /* InputViewController.swift */,
 				5036A61120DF293C0061F27E /* Task.swift */,
 				50F6A78B20E1F448004A2857 /* CategoryViewController.swift */,
+				50DD1DCB20E2847300952F36 /* Category.swift */,
 			);
 			path = taskapp;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				50F826B420DF26CA00C7D1EC /* InputViewController.swift in Sources */,
 				50F826A420DF1E3800C7D1EC /* ViewController.swift in Sources */,
 				50F826A220DF1E3800C7D1EC /* AppDelegate.swift in Sources */,
+				50DD1DCC20E2847300952F36 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

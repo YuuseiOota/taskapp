@@ -73,10 +73,7 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         setNotification(task: task)
         
         super.viewWillDisappear(animated)
-        
-        print("======================")
-        print(task)
-        print("======================")
+    
     }
     
     func setNotification(task: Task) {
