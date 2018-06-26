@@ -16,12 +16,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     // Realmインスタンスを取得する
-    let realm = try! Realm()  // ←追加
+    let realm = try! Realm()  
     
     // DB内のタスクが格納されるリスト。
     // 日付近い順\順でソート：降順
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+    //DB内のカテゴリーが格納されるリスト。
+    var categoryArray = try! Realm().objects(Category.self)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         categorySearchBar.delegate = self
         categorySearchBar.enablesReturnKeyAutomatically = false
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +108,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // segue で画面遷移するに呼ばれる
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let inputViewController:InputViewController = segue.destination as! InputViewController
+        let category = Category()
+        inputViewController.category = category
         
         if segue.identifier == "cellSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow

@@ -218,6 +218,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dpw-Cn-2zO"/>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="JUF-n7-LK3" id="oHN-Ux-3os"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oCx-f8-iBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

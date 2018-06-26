@@ -17,11 +17,11 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var contentsTextView: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     var pickerView: UIPickerView = UIPickerView()
-    let list = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-    
     
     var task: Task!
+    var category: Category!
     let realm = try! Realm()
+    let list = try! Realm().objects(Category.self).map { $0.name }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         categoryTextField.text = task.category
         contentsTextView.text = task.contents
         datePicker.date = task.date
+
     }
     
     @objc func dismissKeyboard(){
@@ -72,6 +73,10 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         setNotification(task: task)
         
         super.viewWillDisappear(animated)
+        
+        print("======================")
+        print(task)
+        print("======================")
     }
     
     func setNotification(task: Task) {
@@ -146,6 +151,23 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
         return CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    //seugeで画面遷移するときに呼ばれる
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let categoryViewController: CategoryViewController = segue.destination as! CategoryViewController
+        let category = Category()
+        
+        if segue.identifier == "CategorySegue" {
+            categoryViewController.category = category
+            
+            //プライマリキーを設定
+            let allCategories = realm.objects(Category.self)
+            if allCategories.count != 0 {
+                category.id = allCategories.max(ofProperty: "id")! + 1
+            }
+        }
+        
     }
 
     /*

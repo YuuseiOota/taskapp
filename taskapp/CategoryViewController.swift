@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CategoryViewController: UIViewController {
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    var category: Category!
+    
+    // Realmインスタンスを取得する
+    let realm = try! Realm()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +26,16 @@ class CategoryViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        try! realm.write {
+            self.category.name = nameTextField.text!
+            self.realm.add(self.category, update: true)
+        }
+        
+        super.viewWillDisappear(animated)
+
     }
     
 
